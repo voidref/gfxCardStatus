@@ -15,8 +15,6 @@
 
 @implementation gfxCardStatusAppDelegate
 
-@synthesize menuController;
-
 #pragma mark - Initialization
 
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification
@@ -28,8 +26,6 @@
     // Attempt to open a connection to AppleGraphicsControl.
     if (![GSMux switcherOpen]) {
         NSLog(@"Can't open connection to AppleGraphicsControl. This probably isn't a gfxCardStatus-compatible machine.");
-        
-        [menuController quit:self];
     } else {
         NSLog(@"GPUs present: %@", [GSGPU getGPUNames]);
         NSLog(@"Integrated GPU name: %@", [GSGPU integratedGPUName]);
@@ -41,25 +37,12 @@
     [GSMux setMode:GSSwitcherModeForceIntegrated];
 }
 
-#pragma mark - Termination Notifications
-
-- (void)applicationWillTerminate:(NSNotification *)aNotification
-{
-    // Set the machine to dynamic switching before shutdown to avoid machine restarting
-    // stuck in a forced GPU mode.
-//    if (![GSGPU isLegacyMachine])
-//        [GSMux setMode:GSSwitcherModeDynamicSwitching];
-
-    NSLog(@"Termination notification received.");
-}
-
 - (void)workspaceWillPowerOff:(NSNotification *)aNotification
 {
     // Selector called in response to application termination notification from
-    // NSWorkspace. Also implemented to avoid the machine shuting down in a forced
-    // GPU state.
-    [[NSApplication sharedApplication] terminate:self];
+    // NSWorkspace.
     NSLog(@"NSWorkspaceWillPowerOff notification received. Terminating application.");
+    [[NSApplication sharedApplication] terminate:self];
 }
 
 #pragma mark - GSGPUDelegate protocol

@@ -7,14 +7,10 @@
 //
 
 #import "GSPreferences.h"
-#import "PreferencesWindowController.h"
-#import "GSMenuController.h"
 #import "GSGPU.h"
 
 @interface gfxCardStatusAppDelegate : NSObject <NSApplicationDelegate,GSGPUDelegate> {
     GSPreferences *_prefs;
 }
-
-@property (strong) IBOutlet GSMenuController *menuController;
 
 @end
