@@ -3,10 +3,6 @@
 //
 
 #ifdef __OBJC__
-    #import <Cocoa/Cocoa.h>
-    #import "GTMLogger.h"
-
-    #define Str(key) NSLocalizedString(key, key)
-
-    #define kApplicationWebsiteURL @"http://gfx.io"
+#import <Cocoa/Cocoa.h>
+#define Str(x) x
 #endif

@@ -48,9 +48,4 @@
 
 #pragma mark - AdvancedPreferencesViewController API
 
-- (IBAction)whyButtonClicked:(id)sender
-{
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kPowerSourceBasedSwitchingExplanationURL]];
-}
-
 @end

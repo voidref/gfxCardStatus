@@ -6,8 +6,6 @@
 //  Copyright 2010 Cody Krieger. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
-
 typedef enum {
     GSPowerSourceBasedSwitchingModeIntegrated = 0,
     GSPowerSourceBasedSwitchingModeDiscrete = 1,
@@ -29,10 +27,6 @@ typedef enum {
 
 - (BOOL)shouldCheckForUpdatesOnStartup;
 - (BOOL)shouldStartAtLogin;
-- (BOOL)shouldDisplayNotifications;
-- (BOOL)shouldUsePowerSourceBasedSwitching;
-- (BOOL)shouldUseImageIcons;
-- (BOOL)shouldUseSmartMenuBarIcons;
 - (GSPowerSourceBasedSwitchingMode)modeForACAdapter;
 - (GSPowerSourceBasedSwitchingMode)modeForBattery;
 

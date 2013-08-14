@@ -52,7 +52,7 @@ static void _displayReconfigurationCallback(CGDirectDisplayID display, CGDisplay
     // we aren't just randomly changing modes on users unexpectedly. Need to do
     // some testing of this before the v2.2/v2.3 release.
     if ((!CGDisplayIsBuiltin(display) || flags & kCGDisplayAddFlag) && ![GSGPU isLegacyMachine]) {
-        GTMLoggerInfo(@"A non-built-in display reconfiguration callback has been triggered.");
+        NSLog(@"A non-built-in display reconfiguration callback has been triggered.");
         
         // FIXME: Implement. This kind of needs to happen.
     }
@@ -63,7 +63,7 @@ static void _displayReconfigurationCallback(CGDirectDisplayID display, CGDisplay
             
             BOOL isUsingIntegrated = [GSMux isUsingIntegratedGPU];
             
-            GTMLoggerInfo(@"Notification: GPU changed. Integrated? %d", isUsingIntegrated);
+            NSLog(@"Notification: GPU changed. Integrated? %s", isUsingIntegrated ? "yes" : "no");
             
             GSGPUType activeType = (isUsingIntegrated ? GSGPUTypeIntegrated : GSGPUTypeDiscrete);
             [_delegate GPUDidChangeTo:activeType];
@@ -193,11 +193,6 @@ static void _displayReconfigurationCallback(CGDirectDisplayID display, CGDisplay
         NSArray *gpuNames = [self getGPUNames];
         _cached2010MacBookProValue = [gpuNames containsObject:k2010MacBookProDiscreteGPUName];
     }
-
-    if (_cached2010MacBookProValue)
-        GTMLoggerInfo(@"Nuke it from orbit switching enabled.");
-    else
-        GTMLoggerInfo(@"Nuke it from orbit switching disabled.");
 
     _didCache2010MacBookProValue = YES;
 

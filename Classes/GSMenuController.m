@@ -14,8 +14,6 @@
 #import "GSNotifier.h"
 #import "GSProcess.h"
 
-#import <ReactiveCocoa/ReactiveCocoa.h>
-
 #define kImageIconIntegratedName    @"integrated"
 #define kImageIconDiscreteName      @"discrete"
 #define kImageIconOpenSuffix        @"-white"
@@ -23,9 +21,7 @@
 #define kShouldUseSmartMenuBarIconsKeyPath @"prefsDict.shouldUseSmartMenuBarIcons"
 
 @interface GSMenuController (Internal)
-- (void)_localizeMenu;
 - (void)_updateProcessList;
-- (void)_updateMenuBarIconText:(BOOL)isUsingIntegrated cardString:(NSString *)cardString;
 @end
 
 @implementation GSMenuController
@@ -60,11 +56,6 @@
     
     _prefs = [GSPreferences sharedInstance];
     
-    [[_prefs rac_signalForKeyPath:kShouldUseSmartMenuBarIconsKeyPath onObject:self] subscribeNext:^(id x) {
-        GTMLoggerDebug(@"Use smart menu bar icons value changed: %@", x);
-        [self updateMenu];
-    }];
-    
     return self;
 }
 
@@ -84,48 +75,23 @@
     [discreteOnly setHidden:isLegacyMachine];
     [dynamicSwitching setHidden:isLegacyMachine];
     
-    // Listen for when the menu opens and change the icons appropriately if the
-    // user is using images.
-    [RACAble(self.menuIsOpen) subscribeNext:^(id x) {
-        GTMLoggerDebug(@"Menu open: %@", x);
-        
-        if (_prefs.shouldUseImageIcons) {
-            NSString *imageName = _statusItem.image.name;
-            
-            if ([x boolValue])
-                imageName = [imageName stringByAppendingString:kImageIconOpenSuffix];
-            else
-                imageName = [imageName stringByReplacingOccurrencesOfString:kImageIconOpenSuffix withString:@""];
-            
-            [_statusItem setImage:[NSImage imageNamed:imageName]];
-        }
-    }];
-    
-    [self _localizeMenu];
     [self updateMenu];
 }
 
 - (void)updateMenu
 {
-    GTMLoggerDebug(@"Updating status...");
+    NSLog(@"Updating status...");
 
     BOOL isUsingIntegrated = [GSMux isUsingIntegratedGPU];
 
     NSString *gpuString = (isUsingIntegrated ? [GSGPU integratedGPUName] : [GSGPU discreteGPUName]);
 
-    // Set menu bar icon (either with images or text, depending on the presence
-    // of properly-named icon images in gfxCardStatus.app/Contents/Resources).
-    if ([_prefs shouldUseImageIcons])
-        [_statusItem setImage:[NSImage imageNamed:(isUsingIntegrated ? kImageIconIntegratedName : kImageIconDiscreteName)]];
-    else
-        [self _updateMenuBarIconText:isUsingIntegrated cardString:gpuString];
-
     if (![GSGPU isLegacyMachine]) {
         BOOL dynamic = [GSMux isUsingDynamicSwitching];
         BOOL isOnIntegratedOnly = [GSMux isOnIntegratedOnlyMode];
 
-        GTMLoggerInfo(@"Using dynamic switching?: %d", dynamic);
-        GTMLoggerInfo(@"Using old-style switching policy?: %d", [GSMux isUsingOldStyleSwitchPolicy]);
+        NSLog(@"Using dynamic switching?: %d", dynamic);
+        NSLog(@"Using old-style switching policy?: %d", [GSMux isUsingOldStyleSwitchPolicy]);
 
         [integratedOnly setState:(isOnIntegratedOnly && !dynamic) ? NSOnState : NSOffState];
         [discreteOnly setState:(!isOnIntegratedOnly && !dynamic) ? NSOnState : NSOffState];
@@ -135,9 +101,9 @@
     [currentCard setTitle:[Str(@"Card") stringByReplacingOccurrencesOfString:@"%%" withString:gpuString]];
 
     if (isUsingIntegrated)
-        GTMLoggerInfo(@"%@ in use. Sweet deal! More battery life.", [GSGPU integratedGPUName]);
+        NSLog(@"%@ in use. Sweet deal! More battery life.", [GSGPU integratedGPUName]);
     else
-        GTMLoggerInfo(@"%@ in use. Bummer! Less battery life for you.", [GSGPU discreteGPUName]);
+        NSLog(@"%@ in use. Bummer! Less battery life for you.", [GSGPU discreteGPUName]);
 
     if (!isUsingIntegrated)
         [self _updateProcessList];
@@ -156,10 +122,8 @@
     if (!_preferencesWindowController) {
         _preferencesWindowController = [[PreferencesWindowController alloc] init];
         
-        NSArray *modules = [NSArray arrayWithObjects:
-                            [[GeneralPreferencesViewController alloc] init], 
-                            [[AdvancedPreferencesViewController alloc] init],
-                            nil];
+        NSArray *modules = @[[[GeneralPreferencesViewController alloc] init], 
+                            [[AdvancedPreferencesViewController alloc] init]];
         
         [_preferencesWindowController setModules:modules];
     }
@@ -168,11 +132,6 @@
     [_preferencesWindowController.window makeKeyAndOrderFront:self];
     [_preferencesWindowController.window setOrderedIndex:0];
     [NSApp activateIgnoringOtherApps:YES];
-}
-
-- (IBAction)openApplicationURL:(id)sender
-{
-    [[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:kApplicationWebsiteURL]];
 }
 
 - (IBAction)quit:(id)sender
@@ -184,7 +143,7 @@
 {
     // For legacy machines.
     if (sender == switchGPUs) {
-        GTMLoggerInfo(@"Switching GPUs...");
+        NSLog(@"Switching GPUs...");
         [GSMux setMode:GSSwitcherModeToggleGPU];
         return;
     }
@@ -197,11 +156,11 @@
     if (sender == integratedOnly) {
         NSArray *taskList = [GSProcess getTaskList];
         if (taskList.count > 0) {
-            GTMLoggerInfo(@"Not setting Integrated Only because of dependencies list items: %@", taskList);
+            NSLog(@"Not setting Integrated Only because of dependencies list items: %@", taskList);
 
             NSMutableArray *taskNames = [[NSMutableArray alloc] init];
             for (NSDictionary *dict in taskList) {
-                NSString *taskName = [dict objectForKey:kTaskItemName];
+                NSString *taskName = dict[kTaskItemName];
                 [taskNames addObject:taskName];
             }
 
@@ -209,17 +168,17 @@
             return;
         }
 
-        GTMLoggerInfo(@"Setting Integrated Only...");
+        NSLog(@"Setting Integrated Only...");
         retval = [GSMux setMode:GSSwitcherModeForceIntegrated];
     }
 
     if (sender == discreteOnly) { 
-        GTMLoggerInfo(@"Setting Discrete Only...");
+        NSLog(@"Setting Discrete Only...");
         retval = [GSMux setMode:GSSwitcherModeForceDiscrete];
     }
 
     if (sender == dynamicSwitching) {
-        GTMLoggerInfo(@"Setting Dynamic Switching...");
+        NSLog(@"Setting Dynamic Switching...");
         retval = [GSMux setMode:GSSwitcherModeDynamicSwitching];
     }
 
@@ -254,13 +213,11 @@
 
 - (void)_localizeMenu
 {
-    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    NSString *version = [[NSBundle mainBundle] infoDictionary][@"CFBundleShortVersionString"];
     [versionItem setTitle:[Str(@"About") stringByReplacingOccurrencesOfString:@"%%" withString:version]];
-    [visitWebsiteItem setTitle:[Str(visitWebsiteItem.title) stringByReplacingOccurrencesOfString:@"%%" withString:kApplicationWebsiteURL]];
-    NSArray *localized = [NSArray arrayWithObjects:updateItem, preferencesItem,
+    NSArray *localized = @[updateItem, preferencesItem,
                           quitItem, switchGPUs, integratedOnly, discreteOnly, 
-                          dynamicSwitching, dependentProcesses, processList, 
-                          nil];
+                          dynamicSwitching, dependentProcesses, processList];
     for (NSButton *loc in localized)
         [loc setTitle:Str([loc title])];
 }
@@ -284,15 +241,15 @@
     if (hide)
         return;
     
-    GTMLoggerDebug(@"Updating process list...");
+    NSLog(@"Updating process list...");
     
     NSArray *processes = [GSProcess getTaskList];
     
     [processList setHidden:([processes count] > 0)];
     
     for (NSDictionary *dict in processes) {
-        NSString *taskName = [dict objectForKey:kTaskItemName];
-        NSString *pid = [dict objectForKey:kTaskItemPID];
+        NSString *taskName = dict[kTaskItemName];
+        NSString *pid = dict[kTaskItemPID];
         NSString *title = [NSString stringWithString:taskName];
         if (![pid isEqualToString:@""])
             title = [title stringByAppendingFormat:@", PID: %@", pid];
@@ -304,38 +261,6 @@
         [statusMenu insertItem:item 
                        atIndex:([statusMenu indexOfItem:processList] + 1)];
     }
-}
-
-- (void)_updateMenuBarIconText:(BOOL)isUsingIntegrated cardString:(NSString *)cardString
-{
-    // Grab the first character of GPU string for the menu bar icon.
-    unichar firstLetter;
-    
-    if ([GSGPU isLegacyMachine] || ![_prefs shouldUseSmartMenuBarIcons]) {
-        firstLetter = [GSMux isUsingIntegratedGPU] ? 'i' : 'd';
-    } else {
-        firstLetter = [cardString characterAtIndex:0];
-    }
-
-    NSString *letter = [[NSString stringWithFormat:@"%C", firstLetter] lowercaseString];
-    int fontSize = ([letter isEqualToString:@"n"] || [letter isEqualToString:@"a"] ? 19 : 18);
-
-    // Set our font style.
-    NSFontManager *fontManager = [NSFontManager sharedFontManager];
-    NSFont *boldItalic = [fontManager fontWithFamily:@"Georgia"
-                                              traits:NSBoldFontMask|NSItalicFontMask
-                                              weight:0
-                                                size:fontSize];
-
-    NSDictionary *attributes = [[NSDictionary alloc] initWithObjectsAndKeys:
-                                boldItalic, NSFontAttributeName, 
-                                [NSNumber numberWithDouble:2.0], NSBaselineOffsetAttributeName, nil];
-    NSAttributedString *title = [[NSAttributedString alloc] 
-                                 initWithString:letter
-                                 attributes:attributes];
-    
-    // Finally set the menu bar item's text.
-    [_statusItem setAttributedTitle:title];
 }
 
 @end

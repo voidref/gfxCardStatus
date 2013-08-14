@@ -7,14 +7,11 @@
 //
 
 #import "GSGPU.h"
-#import <Growl/Growl.h>
 
-@interface GSNotifier : NSObject<GrowlApplicationBridgeDelegate>
+@interface GSNotifier : NSObject
 
 + (GSNotifier *)sharedInstance;
 
-+ (void)showGPUChangeNotification:(GSGPUType)type;
-+ (void)showOneTimeNotification;
 + (void)showUnsupportedMachineMessage;
 + (void)showCantSwitchToIntegratedOnlyMessage:(NSArray *)taskList;
 

@@ -83,7 +83,7 @@
         defaultModule = [self _moduleForIdentifier:savedIdentifier];
         
         if (!defaultModule)
-            defaultModule = [_modules objectAtIndex:0];
+            defaultModule = _modules[0];
         
         [self _changeToModule:defaultModule];
     }

@@ -52,7 +52,7 @@ static void _procTask(const void *value, void *param) {
     // return if we haven't found a matching service in the kernel task list
     if (k == NULL) return;
     
-    key = [[NSNumber alloc] initWithLongLong:pid];
+    key = @(pid);
     
     sz = sizeof(i);
     if (sysctl(mib, 2, &i, &sz, NULL, 0) == -1)
@@ -78,16 +78,14 @@ static void _procTask(const void *value, void *param) {
     
     // we finally have the proc name!
     procName = [[NSString alloc] initWithUTF8String:cp];
-    [arr addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-                    procName, kTaskItemName,
-                    [key stringValue], kTaskItemPID, nil]];
+    [arr addObject:@{kTaskItemName: procName,
+                    kTaskItemPID: [key stringValue]}];
     
     free(buf);
     goto done;
 err:
-    [arr addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-                    [[NSString alloc] initWithUTF8String:k->kp_proc.p_comm], kTaskItemName,
-                    @"", kTaskItemPID, nil]];
+    [arr addObject:@{kTaskItemName: [[NSString alloc] initWithUTF8String:k->kp_proc.p_comm],
+                    kTaskItemPID: @""}];
 done:
     return;
 }
@@ -159,9 +157,8 @@ static void _procScan(io_registry_entry_t service, NSMutableArray *arr) {
     if (CGGetOnlineDisplayList(8, displays, &displayCount) == noErr) {
         for (int i = 0; i < displayCount; i++) {
             if ( ! CGDisplayIsBuiltin(displays[i]))
-                [list addObject:[NSDictionary dictionaryWithObjectsAndKeys:
-                                 Str(@"External Display"), kTaskItemName,
-                                 @"", kTaskItemPID, nil]];
+                [list addObject:@{kTaskItemName: @"External Display",
+                                 kTaskItemPID: @""}];
         }
     }
     
@@ -169,7 +166,7 @@ static void _procScan(io_registry_entry_t service, NSMutableArray *arr) {
     io_registry_entry_t service = 0;
     service = IORegistryGetRootEntry(kIOMasterPortDefault);
     if (!service)
-        return [NSArray array];
+        return @[];
     
     _procUpdate();
     _procScan(service, list);

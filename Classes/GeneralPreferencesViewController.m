@@ -51,11 +51,11 @@
     // from our awesome friend Josh Abernathy at GitHub that the value we're
     // subscribed to has changed.
     [[prefs rac_signalForKeyPath:kShouldStartAtLoginKeyPath onObject:self] subscribeNext:^(id x) {
-        GTMLoggerDebug(@"Start at login value changed: %@", x);
+        NSLog(@"Start at login value changed: %@", x);
         [GSStartup loadAtStartup:[x boolValue]];
     }];
     
-    NSArray *localizedButtons = [[NSArray alloc] initWithObjects:prefChkStartup, prefChkUpdate, prefChkSmartIcons, prefChkGrowl, nil];
+    NSArray *localizedButtons = @[prefChkStartup, prefChkUpdate, prefChkSmartIcons, prefChkGrowl];
     for (NSButton *loc in localizedButtons)
         [loc setTitle:Str([loc title])];
 
