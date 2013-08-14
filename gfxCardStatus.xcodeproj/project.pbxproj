@@ -207,9 +207,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8D1107260486CEB800E47090 /* gfxCardStatus */ = {
+		8D1107260486CEB800E47090 /* noNvidia */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "gfxCardStatus" */;
+			buildConfigurationList = C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "noNvidia" */;
 			buildPhases = (
 				8D1107290486CEB800E47090 /* Resources */,
 				8D11072C0486CEB800E47090 /* Sources */,
@@ -220,7 +220,7 @@
 			);
 			dependencies = (
 			);
-			name = gfxCardStatus;
+			name = noNvidia;
 			productInstallPath = "$(HOME)/Applications";
 			productName = gfxCardStatus;
 			productReference = 8D1107320486CEB800E47090 /* gfxCardStatus.app */;
@@ -266,7 +266,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8D1107260486CEB800E47090 /* gfxCardStatus */,
+				8D1107260486CEB800E47090 /* noNvidia */,
 			);
 		};
 /* End PBXProject section */
@@ -434,7 +434,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "gfxCardStatus" */ = {
+		C01FCF4A08A954540054247B /* Build configuration list for PBXNativeTarget "noNvidia" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C01FCF4B08A954540054247B /* Debug */,
