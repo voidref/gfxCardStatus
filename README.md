@@ -1,7 +1,7 @@
-# gfxCardStatus
+# noNvidia
 by Cody Krieger
 
-gfxCardStatus is an open-source menu bar application for OS X that allows users
+noNvidia is an open-source menu bar application for OS X that allows users
 of dual GPU MacBook Pros to monitor the status of, and switch between said GPUs.
 
 ## License
@@ -18,7 +18,7 @@ modification, are permitted provided that the following conditions are met:
     * Redistributions in binary form must reproduce the above copyright
       notice, this list of conditions and the following disclaimer in the
       documentation and/or other materials provided with the distribution.  
-    * Neither the name of gfxCardStatus nor the
+    * Neither the name of noNvidia nor the
       names of its contributors may be used to endorse or promote products
       derived from this software without specific prior written permission.  
 

@@ -1,6 +1,6 @@
 //
 //  GSStartup.m
-//  gfxCardStatus
+//  noNvidia
 //
 //  Created by Cody Krieger on 6/12/12.
 //  Copyright (c) 2012 Cody Krieger. All rights reserved.
@@ -8,7 +8,7 @@
 
 #import "GSStartup.h"
 
-#define kApplicationName @"gfxCardStatus.app"
+#define kApplicationName @"noNvidia.app"
 
 @implementation GSStartup
 

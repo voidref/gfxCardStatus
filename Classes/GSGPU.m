@@ -1,6 +1,6 @@
 //
 //  GSGPU.m
-//  gfxCardStatus
+//
 //
 //  Created by Cody Krieger on 6/12/12.
 //  Copyright (c) 2012 Cody Krieger. All rights reserved.
@@ -23,7 +23,7 @@
 
 #define kNukeItFromOrbitSwitchingOn2010MacBookPros @"nukeItFromOrbitSwitchingOn2010MacBookPros"
 
-#define kNotificationQueueName      "com.codykrieger.gfxCardStatus.GPUChangeNotificationQueue"
+#define kNotificationQueueName      "com.rockwood.noNvidia.GPUChangeNotificationQueue"
 #define kNotificationSleepInterval  (0.5)
 
 static void _displayReconfigurationCallback(CGDirectDisplayID display, CGDisplayChangeSummaryFlags flags, void *userInfo);

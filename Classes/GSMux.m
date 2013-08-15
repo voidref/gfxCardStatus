@@ -1,6 +1,6 @@
 //
 //  GSMux.m
-//  gfxCardStatus
+//  noNvidia
 //
 //  Created by Cody Krieger on 6/21/11.
 //  Copyright 2011 Cody Krieger. All rights reserved.

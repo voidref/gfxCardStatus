@@ -1,6 +1,6 @@
 //
 //  GSPreferences.m
-//  gfxCardStatus
+//  noNvidia
 //
 //  Created by Cody Krieger on 9/26/10.
 //  Copyright 2010 Cody Krieger. All rights reserved.
@@ -24,7 +24,7 @@
 
 // Why aren't we just using NSUserDefaults? Because it was unbelievably
 // unreliable. This works all the time, no questions asked.
-#define kPreferencesPlistPath [@"~/Library/Preferences/com.codykrieger.gfxCardStatus-Preferences.plist" stringByExpandingTildeInPath]
+#define kPreferencesPlistPath [@"~/Library/Preferences/com.codykrieger.noNvidia-Preferences.plist" stringByExpandingTildeInPath]
 
 @interface GSPreferences (Internal)
 - (NSString *)_getPrefsPath;

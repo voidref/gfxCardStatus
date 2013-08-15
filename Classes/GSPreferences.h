@@ -1,6 +1,6 @@
 //
 //  GSPreferences.h
-//  gfxCardStatus
+//  noNvidia
 //
 //  Created by Cody Krieger on 9/26/10.
 //  Copyright 2010 Cody Krieger. All rights reserved.

@@ -1,6 +1,6 @@
 //
 //  main.m
-//  gfxCardStatus
+//  noNvidia
 //
 //  Created by Cody Krieger on 4/22/10.
 //  Copyright 2010 Cody Krieger. All rights reserved.

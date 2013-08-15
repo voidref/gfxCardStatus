@@ -1,19 +1,16 @@
 //
-//  gfxCardStatusAppDelegate.m
-//  gfxCardStatus
+//  noNvidiaAppDelegate.m
+//  noNvidia
 //
 //  Created by Cody Krieger on 4/22/10.
 //  Copyright 2010 Cody Krieger. All rights reserved.
 //
 
-#import "gfxCardStatusAppDelegate.h"
-#import "GeneralPreferencesViewController.h"
-#import "AdvancedPreferencesViewController.h"
+#import "noNvidiaAppDelegate.h"
 #import "GSProcess.h"
 #import "GSMux.h"
-#import "GSNotifier.h"
 
-@implementation gfxCardStatusAppDelegate
+@implementation noNvidiaAppDelegate
 
 #pragma mark - Initialization
 
@@ -25,7 +22,7 @@
 
     // Attempt to open a connection to AppleGraphicsControl.
     if (![GSMux switcherOpen]) {
-        NSLog(@"Can't open connection to AppleGraphicsControl. This probably isn't a gfxCardStatus-compatible machine.");
+        NSLog(@"Can't open connection to AppleGraphicsControl. This probably isn't a noNvidia-compatible machine.");
     } else {
         NSLog(@"GPUs present: %@", [GSGPU getGPUNames]);
         NSLog(@"Integrated GPU name: %@", [GSGPU integratedGPUName]);
