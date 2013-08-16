@@ -10,17 +10,7 @@
 #import "GSStartup.h"
 #import "GSGPU.h"
 
-// Unfortunately this value needs to stay misspelled unless there is a desire to
-// migrate it to a correctly spelled version instead, since getting and setting
-// the existing preferences depend on it.
-#define kPowerSourceBasedSwitchingACMode        @"GPUSetting_ACAdaptor"
-#define kPowerSourceBasedSwitchingBatteryMode   @"GPUSetting_Battery"
-
 #define kShouldStartAtLoginKey                  @"shouldStartAtLogin"
-#define kShouldUseImageIconsKey                 @"shouldUseImageIcons"
-#define kShouldCheckForUpdatesOnStartupKey      @"shouldCheckForUpdatesOnStartup"
-#define kShouldUsePowerSourceBasedSwitchingKey  @"shouldUsePowerSourceBasedSwitching"
-#define kShouldUseSmartMenuBarIconsKey          @"shouldUseSmartMenuBarIcons"
 
 // Why aren't we just using NSUserDefaults? Because it was unbelievably
 // unreliable. This works all the time, no questions asked.
@@ -77,25 +67,13 @@
     if ([self shouldStartAtLogin])
         [GSStartup loadAtStartup:YES];
     
-    // If an "integrated" image is available in our bundle, assume the user has
-    // custom icons that we should use.
-    _prefsDict[kShouldUseImageIconsKey] = @(!![[NSBundle mainBundle] pathForResource:@"integrated" ofType:@"png"]);
 }
 
 - (void)setDefaults
 {
     NSLog(@"Setting initial defaults...");
     
-    _prefsDict[kShouldCheckForUpdatesOnStartupKey] = @YES;
     _prefsDict[kShouldStartAtLoginKey] = @YES;
-    _prefsDict[kShouldUsePowerSourceBasedSwitchingKey] = @NO;
-    _prefsDict[kShouldUseSmartMenuBarIconsKey] = @NO;
-    
-    _prefsDict[kPowerSourceBasedSwitchingBatteryMode] = @(GSPowerSourceBasedSwitchingModeIntegrated);
-    if ([GSGPU isLegacyMachine])
-        _prefsDict[kPowerSourceBasedSwitchingACMode] = @(GSPowerSourceBasedSwitchingModeDiscrete);
-    else
-        _prefsDict[kPowerSourceBasedSwitchingACMode] = @(GSPowerSourceBasedSwitchingModeDynamic);
     
     [self savePreferences];
 }
@@ -121,40 +99,11 @@
     return [_prefsDict[key] boolValue];
 }
 
-- (BOOL)shouldCheckForUpdatesOnStartup
-{
-    return [_prefsDict[kShouldCheckForUpdatesOnStartupKey] boolValue];
-}
-
 - (BOOL)shouldStartAtLogin
 {
     return [_prefsDict[kShouldStartAtLoginKey] boolValue];
 }
 
-- (BOOL)shouldUsePowerSourceBasedSwitching
-{
-    return [_prefsDict [kShouldUsePowerSourceBasedSwitchingKey] boolValue];
-}
-
-- (BOOL)shouldUseImageIcons
-{
-    return [_prefsDict[kShouldUseImageIconsKey] boolValue];
-}
-
-- (BOOL)shouldUseSmartMenuBarIcons
-{
-    return [_prefsDict[kShouldUseSmartMenuBarIconsKey] boolValue];
-}
-
-- (GSPowerSourceBasedSwitchingMode)modeForACAdapter
-{
-    return [_prefsDict[kPowerSourceBasedSwitchingACMode] intValue];
-}
-
-- (GSPowerSourceBasedSwitchingMode)modeForBattery
-{
-    return [_prefsDict[kPowerSourceBasedSwitchingBatteryMode] intValue];
-}
 
 #pragma mark - NSWindowDelegate protocol
 

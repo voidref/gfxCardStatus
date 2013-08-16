@@ -25,10 +25,7 @@ typedef enum {
 - (void)setDefaults;
 - (void)savePreferences;
 
-- (BOOL)shouldCheckForUpdatesOnStartup;
 - (BOOL)shouldStartAtLogin;
-- (GSPowerSourceBasedSwitchingMode)modeForACAdapter;
-- (GSPowerSourceBasedSwitchingMode)modeForBattery;
 
 - (void)setBool:(BOOL)value forKey:(NSString *)key;
 - (BOOL)boolForKey:(NSString *)key;
