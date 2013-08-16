@@ -20,7 +20,6 @@
 		A16B28F41196B0E7006EB263 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = A16B28F31196B0E7006EB263 /* README.md */; };
 		A17CE49A13B07C3700E5D50F /* GSProcess.m in Sources */ = {isa = PBXBuildFile; fileRef = A17CE49913B07C3700E5D50F /* GSProcess.m */; };
 		A17CE49E13B081DE00E5D50F /* GSMux.m in Sources */ = {isa = PBXBuildFile; fileRef = A17CE49D13B081DE00E5D50F /* GSMux.m */; };
-		A1D9C42011850DEF009A4DE1 /* dsa_pub.pem in Resources */ = {isa = PBXBuildFile; fileRef = A1D9C41F11850DEF009A4DE1 /* dsa_pub.pem */; };
 		A1E07D581194B42100683B07 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1E07D571194B42100683B07 /* IOKit.framework */; };
 		A1E07E111194B42B00683B07 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A1E07E101194B42B00683B07 /* ApplicationServices.framework */; };
 		A1ED2B9F1588457400B99CDE /* GSGPU.m in Sources */ = {isa = PBXBuildFile; fileRef = A1ED2B9E1588457400B99CDE /* GSGPU.m */; };
@@ -63,7 +62,6 @@
 		A17CE49913B07C3700E5D50F /* GSProcess.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSProcess.m; sourceTree = "<group>"; };
 		A17CE49C13B081DE00E5D50F /* GSMux.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSMux.h; sourceTree = "<group>"; };
 		A17CE49D13B081DE00E5D50F /* GSMux.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSMux.m; sourceTree = "<group>"; };
-		A1D9C41F11850DEF009A4DE1 /* dsa_pub.pem */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = dsa_pub.pem; sourceTree = "<group>"; };
 		A1E07D571194B42100683B07 /* IOKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = IOKit.framework; path = System/Library/Frameworks/IOKit.framework; sourceTree = SDKROOT; };
 		A1E07E101194B42B00683B07 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
 		A1ED2B9D1588457400B99CDE /* GSGPU.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSGPU.h; sourceTree = "<group>"; };
@@ -90,7 +88,6 @@
 		080E96DDFE201D6D7F000001 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				A1CCE1FC12B13CC1006D07A4 /* Categories */,
 				A11599C813D42A3D0097E4BC /* Preferences */,
 				A11599CA13D42A720097E4BC /* System Utils */,
 				256AC3D80F4B6AC300CF3369 /* noNvidiaAppDelegate.h */,
@@ -112,13 +109,6 @@
 				A1E07E101194B42B00683B07 /* ApplicationServices.framework */,
 			);
 			name = "Linked Frameworks";
-			sourceTree = "<group>";
-		};
-		1058C7A2FEA54F0111CA2CBB /* Other Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
@@ -145,7 +135,6 @@
 			isa = PBXGroup;
 			children = (
 				2D86B9A417BC4B53009420CB /* Images.xcassets */,
-				A1D9C41F11850DEF009A4DE1 /* dsa_pub.pem */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -154,7 +143,6 @@
 			isa = PBXGroup;
 			children = (
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
-				1058C7A2FEA54F0111CA2CBB /* Other Frameworks */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -181,13 +169,6 @@
 				A1ED2D1A158859DE00B99CDE /* GSStartup.m */,
 			);
 			name = "System Utils";
-			sourceTree = "<group>";
-		};
-		A1CCE1FC12B13CC1006D07A4 /* Categories */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Categories;
 			sourceTree = "<group>";
 		};
 		A1ED2B331585847600B99CDE /* Supporting Files */ = {
@@ -234,6 +215,11 @@
 			attributes = {
 				LastUpgradeCheck = 0500;
 				ORGANIZATIONNAME = "Cody Krieger";
+				TargetAttributes = {
+					8D1107260486CEB800E47090 = {
+						DevelopmentTeam = SR7K2S8GE4;
+					};
+				};
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "noNvidia" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -279,7 +265,6 @@
 				8D11072B0486CEB800E47090 /* InfoPlist.strings in Resources */,
 				2D86B9A517BC4B53009420CB /* Images.xcassets in Resources */,
 				1DDD58160DA1D0A300B32029 /* MainMenu.xib in Resources */,
-				A1D9C42011850DEF009A4DE1 /* dsa_pub.pem in Resources */,
 				A16B28F41196B0E7006EB263 /* README.md in Resources */,
 				A14B9EAB13C5613F009A761C /* Credits.rtf in Resources */,
 				A161687F158E0E380063BE94 /* LICENSE in Resources */,
@@ -333,7 +318,8 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -352,6 +338,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = noNvidia;
+				PROVISIONING_PROFILE = "";
 				SDKROOT = macosx;
 			};
 			name = Debug;
@@ -362,7 +349,8 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "Developer ID Application: Cody Krieger";
+				CODE_SIGN_IDENTITY = "Mac Developer";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Mac Developer";
 				COMBINE_HIDPI_IMAGES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				FRAMEWORK_SEARCH_PATHS = (

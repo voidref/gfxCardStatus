@@ -1,12 +1,18 @@
 # noNvidia
-by Cody Krieger
+by Alan Westbrook
 
-noNvidia is an open-source menu bar application for OS X that allows users
-of dual GPU MacBook Pros to monitor the status of, and switch between said GPUs.
+noNvidia is an open-source menu bar application for OS X that forces
+the integrated graphics to always be run.
 
 ## License
 
 Licensed under the New BSD License.
+
+Copyright (c) Alan Westbrook
+Some rights reserved.
+
+This software is based on gfxCardStatus by Cody Krieger.
+
 
 Copyright (c) 2010-2012, Cody Krieger
 All rights reserved.
